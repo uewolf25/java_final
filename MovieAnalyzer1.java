@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -8,7 +10,7 @@ public class MovieAnalyzer1{
 
     void run(String[] args) throws IOException {
         this.initialize(); //マップの初期化
-        for (String item : item) {
+        for (String item : args) {
             //ファイルの読み込み
             this.readFile( new File(item) );
             //結果を出力
@@ -29,6 +31,7 @@ public class MovieAnalyzer1{
             //公開年の回数を調べ、格納＆初期化。
             this.frequencyCount(map, line);
         }
+        in.close();
     }
 
     /* 公開年の回数を調べ、格納＆初期化 */
@@ -47,7 +50,7 @@ public class MovieAnalyzer1{
     /* 結果を出力 */
     void printTreeMap(){
         for ( Map.Entry<Integer, Integer> map : map.entrySet() ) {
-            System.out.printf("%s: %d%n", entry.getKey(), entry.getValue());
+            System.out.printf("%s: %d%n", map.getKey(), map.getValue());
         }
     }
 
