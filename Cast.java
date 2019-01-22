@@ -8,7 +8,7 @@ public class Cast{
     Integer count = 0; //出演数
     ArrayList<String> genres = new ArrayList<>(); //ジャンル
 
-    void update(String name, String genreString){
+    public void update(String name, String genreString){
         this.name = name;
         String[] items = genreString.split("[,/] *"); // ,/で区切る。
         //コンマで区切ったジャンルを１つずつリストに格納。
@@ -21,8 +21,9 @@ public class Cast{
         }
     }
 
-    String string(){
-        return String.format("%s,%d,%s%n", name, count, genres);
+    /* 全体の出力 */
+    public String string(){
+        return String.format("%s,%d,%s", name, count, genres);
     }
 
 }

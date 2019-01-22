@@ -76,16 +76,15 @@ public class MovieAnalyzer3{
             if( castList.get(i).isEmpty() ) continue;
             
             //出演者を1人ずつリストに格納していく。その時のジャンルも格納していく。
-            AddCastMap( castList.get(i), dataCut.get(5) );
+            addCastMap( castList.get(i), dataCut.get(5) );
         }
     }
 
     /* 出演者を1人ずつリストに格納していく。 */
-    void AddCastMap(String performerName, String genre){
+    void addCastMap(String performerName, String genre){
         Cast cast = new Cast(); //castの実体化
-
-        // if( performerName.isEmpty() ) return;
-
+        //名前の前の空白を削除
+        performerName = deleteBlank(performerName);
         if( this.castMap.containsKey(performerName) ){ //出演者の名前がすでに存在しているとき
             cast = this.castMap.get(performerName); //Cast型(value)の取り出し
             cast.update(performerName, genre); //ジャンルと出演数の更新
@@ -93,9 +92,13 @@ public class MovieAnalyzer3{
             cast.update(performerName, genre);
         }
 
-        //エラー
         //出演者とキャスト型をマップに格納
         this.castMap.put(performerName, cast);
+    }
+
+    /* 名前の前の空白を削除 */
+    String deleteBlank(String performerName){
+        return performerName.trim();
     }
 
     void printMap(){
