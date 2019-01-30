@@ -11,14 +11,15 @@ public class MovieAnalyzer2{
 
     void run(String[] args) throws IOException {
         this.initialize(); //マップの初期化
-        BufferedReader in = null;
-        //引数有る無しで読み込み方法を変える
-        in = this.judgeBinary(args, in);
+        
+        //ファイル名ミス時の例外処理。
+        try {
+            //引数有る無しで読み込み方法を変える
+            this.judgeBinary(args);
+        } catch (Exception e) {
+            System.out.println("ファイル名が正しくない又は存在しません。");
+        }
 
-        //ファイルの読み込み
-        this.readFile(in);
-        //ファイルストリームを閉じる
-        in.close();
         //結果を出力
         this.printTreeMap();
     }
@@ -29,17 +30,23 @@ public class MovieAnalyzer2{
     }
 
     /* 引数有る無しで読み込み方法を変える。 */
-    BufferedReader judgeBinary(String[] args, BufferedReader in) throws IOException {
+    void judgeBinary(String[] args) throws IOException {
+        BufferedReader in = null;
         if(args.length == 0){ 
             //標準入力を受け付ける
             in = new BufferedReader( new InputStreamReader(System.in) );
+            //ファイルの読み込み
+            this.readFile(in);
         } else{ 
             //ステップ１と同じ作業をする。
             for (String item : args) {
                 in = new BufferedReader( new FileReader( item ) );
+                //ファイルの読み込み
+                this.readFile(in);
             }
         }
-        return in;
+        //ファイルストリームを閉じる
+        in.close();
     }
 
     /* ファイルの読み込み */
